@@ -3,7 +3,7 @@ var fs = require('fs');
 var http = require('http');
 var url = require('url');
 var path = require('path');
-const Module_template = require('./foo.js');
+const Module_template = require('./shopping_mall.js');
 
 var server = http.createServer(function(request, response) {
   var _url = request.url;
@@ -17,7 +17,9 @@ var server = http.createServer(function(request, response) {
   var active_order_tracking="";
   var active_faq="right";
 
-  if(pathname ==='/' || pathname ==='/shopping_mall.css' || pathname ==='/shopping_mall.js')
+  console.log(pathname);
+
+  if(pathname ==='/' || pathname ==='/shopping_mall.css' || pathname ==='/shopping_mall.js' || pathname ==='/kakao_login.js')
   {
   fs.readFile(`data/${queryData.id}`,'utf8', function(err,data){
     var description = data;
@@ -39,9 +41,15 @@ var server = http.createServer(function(request, response) {
     {
       active_order_tracking = "active";
     }
-    else
+    else if(queryData.id === 'faq')
     {
       active_faq = "right_active" ;
+    }
+    else if(queryData.id === 'login'){
+      description = "로그인 완료";
+    }
+    else{//queryData.id ==='logout'
+      description = "로그아웃 완료";
     }
 
     if(ext){
