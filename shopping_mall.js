@@ -5,50 +5,45 @@ var template = {
      <!DOCTYPE html>
      <html lang="ko"><! language가 korean를 의미>
        <head>
-         <title>페이지 제목(미정)</title>
-         <meta charset="UTF-8"> <! charset=문자의 규칙 UTF-8권장 >
-         <meta name="viewport" content="width=device-width, initial-scale=1">
-         <link type='text/css' href='shopping_mall.css' rel='stylesheet' />
-         <script type='text/javascript' src = 'shopping_mall.js' ></script>
-         <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-         <! 더 자세한 mata data에 대해서 https://blog.naver.com/kira4195/221194492033>
+        <title>페이지 제목(미정)</title>
+        <meta charset="UTF-8"> <! charset=문자의 규칙 UTF-8권장 >
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link type='text/css' href='shopping_mall.css' rel='stylesheet' />
+        <script type='text/javascript' src = 'shopping_mall.js' ></script>
+        <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+        <! 더 자세한 mata data에 대해서 https://blog.naver.com/kira4195/221194492033>
 
-         <script type="text/javascript">
+        <script type="text/javascript">
+
+
+        function unlinkApp(){
+          Kakao.API.request({
+            url: '/v1/user/unlink',
+            success: function(res)
+            {
+              alert('앱탈퇴 완료');
+              console.log(res);
+            },
+             fail: function(error)
+             {
+               console.log(error);
+             }
+           })
+        }
 
          function kakaoLogout(){
-           alert("beforLogout:"+Kakao.Auth.getAccessToken());
-
-           setTimeout(function() {
-               Kakao.Auth.logout(function() { alert("logout"); });
-           }, 1000);
-
-           setTimeout(function() {
-             alert("afterLogout:"+Kakao.Auth.getAccessToken());
-           }, 2000);
-
-           //alert("afterLogout:"+Kakao.Auth.getRefreshToken());
+           Kakao.Auth.logout(function() { alert("logout"); });
+           //로그아웃 페이지로 이동
            setTimeout(function() {
              location.href="/?id=logout";
            }, 2500);
 
          }
-             function unlinkApp(){
-                 Kakao.API.request({
-                     url: '/v1/user/unlink',
-                     success: function(res) {
-                         alert('success!');
-                         console.log(res);
-                     },
-                     fail: function(error) {
-                         console.log(error);
-                     }
-                 })
-             }    
 
          function kakaoLogin(){
            //<![CDATA[
            // 사용할 앱의 JavaScript 키를 설정해 주세요.
-           Kakao.init('your App Key');
+           Kakao.init('06e2d9c566b31c3abd99e0505291fe12');
 
            // 카카오 로그인 버튼을 생성합니다.
            Kakao.Auth.createLoginButton({
@@ -59,7 +54,7 @@ var template = {
              alert(JSON.stringify(authObj));
            },
            fail: function(err) {
-           alert(JSON.stringify(err));
+             alert(JSON.stringify(err));
            }
            });
              //]]>
