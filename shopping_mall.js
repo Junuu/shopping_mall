@@ -1,79 +1,129 @@
-/*모듈 호출*/
-var fs = require('fs');
-var http = require('http');
-var url = require('url');
-var path = require('path');
-const Module_template = require('./shopping_mall.js');
 
-var server = http.createServer(function(request, response) {
-  var _url = request.url;
-  var pathname = url.parse(_url).pathname;
-  var ext = path.extname(pathname); /* 확장자 반환*/
-  var queryData = url.parse(_url, true).query;
-  var title = queryData.id;
-  var active_home = "";
-  var active_product ="";
-  var active_shopping_basket="";
-  var active_order_tracking="";
-  var active_faq="right";
+var template = {
+  HTML: function templateHTML(active_home , active_product , active_shopping_basket ,active_order_tracking, active_faq ,title,description){
+   return `
+     <!DOCTYPE html>
+     <html lang="ko"><! language가 korean를 의미>
+       <head>
+         <title>페이지 제목(미정)</title>
+         <meta charset="UTF-8"> <! charset=문자의 규칙 UTF-8권장 >
+         <meta name="viewport" content="width=device-width, initial-scale=1">
+         <link type='text/css' href='shopping_mall.css' rel='stylesheet' />
+         <script type='text/javascript' src = 'shopping_mall.js' ></script>
+         <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+         <! 더 자세한 mata data에 대해서 https://blog.naver.com/kira4195/221194492033>
 
-  console.log(pathname);
+         <script type="text/javascript">
 
-  if(pathname ==='/' || pathname ==='/shopping_mall.css' || pathname ==='/shopping_mall.js' || pathname ==='/kakao_login.js')
-  {
-  fs.readFile(`data/${queryData.id}`,'utf8', function(err,data){
-    var description = data;
+         function kakaoLogout(){
+           alert("beforLogout:"+Kakao.Auth.getAccessToken());
 
-    if(queryData.id === undefined)
-    {
-      title = 'Home';
-      active_home = "active";
-    }
-    else if(queryData.id === 'product')
-    {
-      active_product = "active";
-    }
-    else if(queryData.id === 'shopping_basket')
-    {
-      active_shopping_basket ="active";
-    }
-    else if(queryData.id === 'order_tracking')
-    {
-      active_order_tracking = "active";
-    }
-    else if(queryData.id === 'faq')
-    {
-      active_faq = "right_active" ;
-    }
-    else if(queryData.id === 'login'){
-      description = "로그인 완료";
-    }
-    else{//queryData.id ==='logout'
-      description = "로그아웃 완료";
-    }
+           setTimeout(function() {
+               Kakao.Auth.logout(function() { alert("logout"); });
+           }, 1000);
 
-    if(ext){
-    if(ext ==='.css'){
-     response.writeHead(200, {'Content-Type': 'text/css'});
-    }
-    else if(ext === '.js'){
-     response.writeHead(200, {'Content-Type': 'text/javascript'});
-    }
-     response.write(fs.readFileSync(__dirname + pathname, 'utf8'));
-    }
-    else{
-     response.writeHead(200, {'Content-Type': 'text/html'});
+           setTimeout(function() {
+             alert("afterLogout:"+Kakao.Auth.getAccessToken());
+           }, 2000);
 
-    }
-    var template= Module_template.HTML(active_home,active_product,active_shopping_basket,active_order_tracking,active_faq,title,description);
-    response.end(template);
-   })
+           //alert("afterLogout:"+Kakao.Auth.getRefreshToken());
+           setTimeout(function() {
+             location.href="/?id=logout";
+           }, 2500);
+
+         }
+             function unlinkApp(){
+                 Kakao.API.request({
+                     url: '/v1/user/unlink',
+                     success: function(res) {
+                         alert('success!');
+                         console.log(res);
+                     },
+                     fail: function(error) {
+                         console.log(error);
+                     }
+                 })
+             }    
+
+         function kakaoLogin(){
+           //<![CDATA[
+           // 사용할 앱의 JavaScript 키를 설정해 주세요.
+           Kakao.init('your App Key');
+
+           // 카카오 로그인 버튼을 생성합니다.
+           Kakao.Auth.createLoginButton({
+           container: '#kakao-login-btn',
+           success: function(authObj) {
+             //로그인창으로 넘어가기
+             location.href="/?id=login";
+             alert(JSON.stringify(authObj));
+           },
+           fail: function(err) {
+           alert(JSON.stringify(err));
+           }
+           });
+             //]]>
+         }
+
+         </script>
+
+       </head>
+
+       <body>
+
+         <div class="header">
+           <h1>쇼핑몰 이름(미정)</h1>
+           <p>간단한 소개글(미정).</p>
+         </div>
+
+         <nav>
+           <div class="navbar">
+             <a href="/" class="${active_home}">홈</a>
+             <a href="/?id=product" class="${active_product}">제품</a>
+             <a href="/?id=shopping_basket" class="${active_shopping_basket}">장바구니</a>
+             <a href="/?id=order_tracking" class="${active_order_tracking}">주문 조회</a>
+             <a href="/?id=faq" class="${active_faq}">FAQ</a>
+           </div>
+         </nav>
+
+         <div class="row">
+           <div class="side">
+             <h4>로그인</h4>
+             <p>
+
+                <a id="kakao-login-btn"></a>
+                <a href="http://developers.kakao.com/logout"></a>
+
+                <script type="text/javascript">
+                kakaoLogin();
+                </script>
+              </p>
+
+             <p>
+              <input type="button" value="로그아웃" onclick="kakaoLogout();"><br>
+              <input type="button" value="앱 탈퇴" onclick="unlinkApp();"><br>
+             </p>
+
+           </div>
+
+           <div class="main">
+             <p> Page Name : ${title}</p>
+             <p> content : ${description}/<p>
+           </div>
+         </div>
+
+         <div class="footer">
+           <p>
+             사업자등록번호:xxx-xxxx-xxx 대표:xxx<br>
+             연락처: 010-1234-5678<br>
+             홈페이지 작성자: 김준우<br>
+           </p>
+         </div>
+
+       </body>
+     </html>
+    `;
  }
- else
- {
-    response.writeHead(404);
-    response.end('not Found');
- }
-})
 
-server.listen(3000);
+}
+module.exports = template ;
