@@ -40,11 +40,11 @@ var template = {
 
          }
 
+
          function kakaoLogin(){
            //<![CDATA[
            // 사용할 앱의 JavaScript 키를 설정해 주세요.
            Kakao.init('06e2d9c566b31c3abd99e0505291fe12');
-
            // 카카오 로그인 버튼을 생성합니다.
            Kakao.Auth.createLoginButton({
            container: '#kakao-login-btn',
@@ -58,6 +58,19 @@ var template = {
            }
            });
              //]]>
+         }
+
+         function newLogin(){
+           Kakao.Auth.loginForm({
+             success: function(authObj) {
+               //로그인창으로 넘어가기
+               location.href="/?id=login";
+               alert(JSON.stringify(authObj));
+             },
+             fail: function(err) {
+               alert(JSON.stringify(err));
+             }
+          })
          }
 
          </script>
@@ -97,6 +110,7 @@ var template = {
              <p>
               <input type="button" value="로그아웃" onclick="kakaoLogout();"><br>
               <input type="button" value="앱 탈퇴" onclick="unlinkApp();"><br>
+              <input type="button" value="새로운 로그인" onclick="newLogin();"><br>
              </p>
 
            </div>
@@ -121,4 +135,4 @@ var template = {
  }
 
 }
-module.exports = template ;
+module.exports = template;
