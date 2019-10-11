@@ -54,3 +54,16 @@ CREATE TABLE order_tracking(
  invoice_number varchar(40), 
  PRIMARY KEY(tracking_num)
 );
+
+
+
+
+/*Insert Dummy Data*/
+INSERT INTO `s_malldb`.`faq` (`title`, `content`, `upload_date`) VALUES ('자주묻는내용', '내용의답변', '20191011');
+INSERT INTO `s_malldb`.`notice` (`title`, `content`, `upload_date`) VALUES ('공지제목', '공지내용', '20191011');
+INSERT INTO `s_malldb`.`notice` (`title`, `content`, `upload_date`) VALUES ('공지날짜테스트', '공지날자테스트내용', '20191013');
+INSERT INTO `s_malldb`.`order_tracking` (`tracking_num`, `id`, `order_state`) VALUES ('58904845', 'myid', '상품준비중');
+INSERT INTO `s_malldb`.`order_tracking` (`tracking_num`, `id`, `order_state`, `invoice_number`) VALUES ('30587385', 'junuuid', '상품배송중', '68940385');
+INSERT INTO `s_malldb`.`product` (`p_name`,`price`,`image`,`info`) VALUES ('상품이름',10000,load_file('your image path'),'상품의 정보입니다.');
+INSERT INTO `s_malldb`.`shopping_basket` (`id`, `p_name`, `p_count`) VALUES ('myid', '상품이름', '3');
+INSERT INTO `s_malldb`.`user_info` (`id`, `user_name`, `e_mail`, `address`, `phone_number`) VALUES ('myid', 'someone', 'example@naver.com', '서울특별시 광진구 화양동 세종대학교 입구', '01012341234');
