@@ -5,6 +5,20 @@ var url = require('url');
 var path = require('path');
 const Module_template = require('./shopping_mall.js');
 
+var mysql = require('mysql');
+
+var db = mysql.createConnection({
+  host      : 'localhost',
+  user      : 'root',
+  password  : 'Your PassWord',
+  database : 's_malldb'
+});
+db.connect();
+
+db.query(`SELECT * FROM notice`, function(error,topics){
+  console.log(topics);
+});
+
 var server = http.createServer(function(request, response) {
   var _url = request.url;
   var pathname = url.parse(_url).pathname;
