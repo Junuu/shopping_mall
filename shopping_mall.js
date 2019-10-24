@@ -117,7 +117,7 @@ var template = {
 
            <div class="main">
              <p> Page Name : ${title}</p>
-             <p> content : ${description}/<p>
+             <p> content : ${description}</p>
            </div>
          </div>
 
