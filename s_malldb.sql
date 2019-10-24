@@ -67,3 +67,8 @@ INSERT INTO `s_malldb`.`order_tracking` (`tracking_num`, `id`, `order_state`, `i
 INSERT INTO `s_malldb`.`product` (`p_name`,`price`,`image`,`info`) VALUES ('상품이름',10000,load_file('your image path'),'상품의 정보입니다.');
 INSERT INTO `s_malldb`.`shopping_basket` (`id`, `p_name`, `p_count`) VALUES ('myid', '상품이름', '3');
 INSERT INTO `s_malldb`.`user_info` (`id`, `user_name`, `e_mail`, `address`, `phone_number`) VALUES ('myid', 'someone', 'example@naver.com', '서울특별시 광진구 화양동 세종대학교 입구', '01012341234');
+INSERT INTO `s_malldb`.`faq` (`title`, `content`, `upload_date`) VALUES ('자주묻는내용2', '내용의답변2', '2019-10-24');
+INSERT INTO `s_malldb`.`product` (`p_name`, `price`, `image`, `info`) VALUES ('상품이름2', '15000', load_file('your image path'), '상품의 정보2입니다.');
+INSERT INTO `s_malldb`.`shopping_basket` (`id`, `p_name`, `p_count`) VALUES ('myid', '상품이름2', '1');
+INSERT INTO `s_malldb`.`shopping_basket` (`id`, `p_name`, `p_count`) VALUES ('junuuid', '상품이름', '2');
+INSERT INTO `s_malldb`.`user_info` (`id`, `user_name`, `e_mail`, `address`, `phone_number`) VALUES ('junuuid', 'someon2', 'example@daum.net', '경기도 시흥시 하중동', '01010101004');
