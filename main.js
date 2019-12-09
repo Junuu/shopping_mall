@@ -47,7 +47,7 @@ var server = http.createServer(function(request, response) {
             temp_str = topics[i].upload_date + ""; // add "" to make string type
             description += "<br>" +topics[i].title + " " + topics[i].content + " " + temp_str.slice(0,10);
           }
-          template= Module_template.BeforeLogin(active_home,active_product,active_shopping_basket,active_order_tracking,active_faq,title,description);
+          template= Module_template.Home(active_home,active_product,active_shopping_basket,active_order_tracking,active_faq,title,description);
           response.end(template);
         });
       }
@@ -67,7 +67,7 @@ var server = http.createServer(function(request, response) {
               p_name : products[i].p_name,
               p_price : products[i].price,
               p_info : products[i].info
-            };            
+            };
             //product_array[i] = "제품명:" + products[i].p_name + " 가격:" + products[i].price + " 상품정보:" + products[i].info;
           }
           template= Module_template.Product(active_home,active_product,active_shopping_basket,active_order_tracking,active_faq,title,product_array);
@@ -89,7 +89,7 @@ var server = http.createServer(function(request, response) {
           {
             description += "<br>" +baskets[i].id + " " + baskets[i].p_name + " "+ baskets[i].p_count;
           }
-          template= Module_template.BeforeLogin(active_home,active_product,active_shopping_basket,active_order_tracking,active_faq,title,description);
+          template= Module_template.Home(active_home,active_product,active_shopping_basket,active_order_tracking,active_faq,title,description);
           response.end(template);
         });
       }
@@ -106,7 +106,7 @@ var server = http.createServer(function(request, response) {
           {
             description += "<br>" +trackings[i].tracking_num + " " + trackings[i].id + " " + trackings[i].order_state + " "+ trackings[i].invoice_number;
           }
-          template= Module_template.BeforeLogin(active_home,active_product,active_shopping_basket,active_order_tracking,active_faq,title,description);
+          template= Module_template.Home(active_home,active_product,active_shopping_basket,active_order_tracking,active_faq,title,description);
           response.end(template);
         });
       }
@@ -124,18 +124,18 @@ var server = http.createServer(function(request, response) {
             temp_str = faqs[i].upload_date + ""; // add "" to make string type
             description += "<br>" +faqs[i].title + " " + faqs[i].content + " " + temp_str.slice(0,10);
           }
-          template= Module_template.BeforeLogin(active_home,active_product,active_shopping_basket,active_order_tracking,active_faq,title,description);
+          template= Module_template.Home(active_home,active_product,active_shopping_basket,active_order_tracking,active_faq,title,description);
           response.end(template);
         });
       }
       else if(queryData.id === 'login'){
         description = "로그인 완료";
-        template= Module_template.BeforeLogin(active_home,active_product,active_shopping_basket,active_order_tracking,active_faq,title,description);
+        template= Module_template.Home(active_home,active_product,active_shopping_basket,active_order_tracking,active_faq,title,description);
         response.end(template);
       }
       else{//queryData.id ==='logout'
         description = "로그아웃 완료";
-        template= Module_template.BeforeLogin(active_home,active_product,active_shopping_basket,active_order_tracking,active_faq,title,description);
+        template= Module_template.Home(active_home,active_product,active_shopping_basket,active_order_tracking,active_faq,title,description);
         response.end(template);
       }
 
