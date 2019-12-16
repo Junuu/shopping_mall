@@ -105,18 +105,16 @@ var server = http.createServer(function(request, response) {
           }
 
           var count = 0;
-
           for(var i=0;i<trackings.length;i++)
           {
-            if(trackings[i].id==track_info)
+            if(trackings[i].id==save_id)
             {
               if(trackings[i].invoice_number == null)
               {
                 invoice_number = " ";
               }
-              track_info = track_info + " " + trackings[i].order_state + " " + trackings[i].invoice_number;
 
-              console.log(track_info);
+              track_info += "아이디 : " + save_id + "&emsp;&emsp;배송상태 : " + trackings[i].order_state + "&emsp;&emsp;운송장 번호 : " + trackings[i].invoice_number + "<br>";
             }
             else
             {
@@ -138,7 +136,7 @@ var server = http.createServer(function(request, response) {
             });
             request.on('end', function(){
               var post = qs.parse(body);
-              track_info = post.id_txt;
+              save_id = post.id_txt;
               active_order_tracking = "active";
 
         });
