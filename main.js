@@ -3,6 +3,7 @@ var fs = require('fs');
 var http = require('http');
 var url = require('url');
 var path = require('path');
+var qs = require('querystring');
 const Module_template = require('./shopping_mall.js');
 var mysql = require('mysql');
 
@@ -28,7 +29,8 @@ var server = http.createServer(function(request, response) {
   var active_faq="right";
   var description = '';
   var template = '';
-  var imgaddress = '';
+  var track_info = "";
+
   //console.log(pathname); 에러확인을위한 코드
 
   if(pathname ==='/' || pathname ==='/shopping_mall.css' || pathname ==='/shopping_mall.js' || pathname ==='/kakao_login.js')
@@ -101,13 +103,44 @@ var server = http.createServer(function(request, response) {
           {
             throw error;
           }
-          active_order_tracking = "active";
+
+          var count = 0;
+
           for(var i=0;i<trackings.length;i++)
           {
-            description += "<br>" +trackings[i].tracking_num + " " + trackings[i].id + " " + trackings[i].order_state + " "+ trackings[i].invoice_number;
+            if(trackings[i].id==track_info)
+            {
+              if(trackings[i].invoice_number == null)
+              {
+                invoice_number = " ";
+              }
+              track_info = track_info + " " + trackings[i].order_state + " " + trackings[i].invoice_number;
+
+              console.log(track_info);
+            }
+            else
+            {
+              count = count + 1;
+            }
           }
-          template= Module_template.Home(active_home,active_product,active_shopping_basket,active_order_tracking,active_faq,title,description);
+          if(trackings.length == count)
+          {
+            track_info = "주문 내역이 없습니다.";
+          }
+          template= Module_template.Order_track(active_home,active_product,active_shopping_basket,active_order_tracking,active_faq,title,track_info);
           response.end(template);
+          });
+
+            //description += "<br>" +trackings[i].tracking_num + " " + trackings[i].id + " " + trackings[i].order_state + " "+ trackings[i].invoice_number;
+            var body ='';
+            request.on('data', function(data){
+              body = body + data;
+            });
+            request.on('end', function(){
+              var post = qs.parse(body);
+              track_info = post.id_txt;
+              active_order_tracking = "active";
+
         });
       }
 
