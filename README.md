@@ -3,7 +3,7 @@
 - version 2 : kakao login api 구현
 - version 3 : Database 연동 구현
 - version 4 : css 디자인 부분 개선
-- 추후게획 : css 디자인 부분 개선
+- 추후게획 : css 디자인 부분 개선 ( 공지사항 (게시판처럼) , 제품 부분 (바둑판처럼) , 로그인 부분 왼쪽 여백 줄이기)
 
 
 ### 사용법
