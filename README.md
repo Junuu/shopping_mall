@@ -7,7 +7,7 @@
 
 
 ### 사용법
-1. Nodejs, Mysql, Atom 편집기가 설치되어 있어야 합니다.
+1. Nodejs, Mysql, Atom 편집기가 설치되어 있어야 합니다.(atom 편집기는 필수가 아닙니다.)
 2. main.js , shopping_mall.css , shopping_mall.js 파일을 다운받습니다.
 3. Mysql에 s_malldb.sql파일을 복사붙여넣기하여 실행 후 테이블 밑 데이터를 추가합니다.
 4. main.js mysql.connection password 부분에 사용자가 사용하는 mysql password를 입력합니다.
