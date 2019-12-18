@@ -72,8 +72,8 @@ body {
 /* Create two unequal columns that sits next to each other */
 /* Sidebar/left column */
 .side {
-  -ms-flex: 25%; /* IE10 */
-  flex: 25%;
+  -ms-flex: 15%; /* IE10 */
+  flex: 15%;
   background-color: #f1f1f1;
   padding: 20px;
 }
@@ -95,10 +95,11 @@ body {
 
 /* Footer */
 .footer {
-  padding: 20px;
+  padding : 10px;
   text-align: center;
   background: #ddd;
-  font-size: 5px;
+  font-size: 15px;
+  width = 100 %;
 }
 
 /* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
@@ -115,3 +116,50 @@ body {
     width: 100%;
   }
 }
+
+#notice {
+  width: 500px;
+  margin : 0 auto;
+  box-sizing: border-box;
+}
+
+#notice h1{
+  font-size: 25px;
+  text-align: center;
+  margin: 10px 180px;
+  padding: 10px;
+  color: #fff;
+  background: #333;
+  border-radius: 30px;
+}
+
+#notice ul {
+  width: 100%;
+}
+
+#notice ul li{
+  line-height: 30px; /*li 세로 간격*/
+  padding-left: 20px;
+}
+
+#notice ul li:first-child {
+  border-top: 2px solid #6a6a6a;
+  border-bottom: 2px solid #6a6a6a;
+  padding-left: 150px;
+}
+
+#notice ul li:last-child {
+  border-bottom: 1px solid #000;
+}
+
+#notice ul li:nth-child(2n) {
+  background : #f1f1f1;
+  border-radius: 20px;
+}
+
+#notice ul li span {
+  display: inline-block;
+  float: right;
+  width: 150px;
+  text-align: center;
+  }
